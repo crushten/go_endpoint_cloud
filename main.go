@@ -24,9 +24,14 @@ func getMessages(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, messages)
 }
 
+func getHealthCheck(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, "API is running!")
+}
+
 func main() {
 	router := gin.Default()
 	router.GET("/messages", getMessages)
+	router.GET("/healthcheck", getHealthCheck)
 
 	router.Run("localhost:8080")
 }
