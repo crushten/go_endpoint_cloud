@@ -9,14 +9,14 @@ import (
 
 // message represents data about a message post
 type message struct {
-	ID        string    `json:"id"`
+	ID        int       `json:"id"`
 	Message   string    `json:"message"`
 	Timestamp time.Time `json:"timestamp"`
 }
 
 // message slice to seed data
 var messages = []message{
-	{ID: "1", Message: "Automate all the things!"},
+	{ID: 1, Message: "Automate all the things!"},
 }
 
 // getMessages responds with list of all the messages as json
