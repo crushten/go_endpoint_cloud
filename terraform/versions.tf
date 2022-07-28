@@ -10,6 +10,11 @@ terraform {
       version = "2.12.1"
     }
 
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "2.20.0"
+    }
+
     local = {
       source  = "hashicorp/local"
       version = "2.2.3"
