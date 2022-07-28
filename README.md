@@ -100,4 +100,60 @@ Todo
 
 ## Cloud Infrastructure
 
-## Provisioning
+This covers provisioning the cloud infrastructure and deploying the application to it.
+
+### Provisioning
+This section covers provisioning the cluster.
+
+##### Prerequisites
+* [Git](https://git-scm.com/downloads)
+* [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+
+##### Instructions
+1. Once the prerequisites are installed you can clone the repo: `git clone https://github.com/crushten/go_endpoint_cloud`.
+2. Change into the `terraform` directory: `cd go_endpoint_cloud/terraform`.
+3. Initialize Terraform to download needed modules and provisioners: `terraform init`.
+4. Check for what Terraform will do: `terraform plan`.
+5. If everything looks good then provision everything: `terraform apply`.
+6. You will need to type `yes` when prompted.
+
+### Deploy Application
+This section covers deploying the application.
+
+##### Prerequisites
+* [Git](https://git-scm.com/downloads)
+* [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+* [Docker](https://docs.docker.com/engine/install/) or 
+* [Docker Desktop](https://docs.docker.com/get-docker/).
+
+##### Instructions
+This doesn't current work. It is also tied to the provisioning process.
+
+### Deprovisioning 
+This section covers destroying the cluster and application.
+
+##### Instructions
+To delete/remove the provisioned infrastructure run `terraform destroy`.
+
+### Testing
+This section covers testing the Terraform code and verifying that application is running.
+
+#### Terraform
+
+To test the Terraform files themselves can run `terraform validate`.
+Also running `terraform plan` can find issues that `validate` wont.
+
+#### Infrastructure
+
+Todo
+
+## Know Issues
+
+1. The application deployment currently doesn't work. Need to figure out how to push the container to ECR.
+
+## Todo
+
+1. Need to add testing for the application.
+2. Need to verify the application is up/running.
+3. Add pipelines to lint/test/build the application and lint/test terraform files.
+4. Improve local dev experience.
