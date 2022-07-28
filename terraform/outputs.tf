@@ -23,3 +23,8 @@ output "cluster_name" {
   description = "Kubernetes Cluster Name"
   value       = local.cluster_name
 }
+
+output "load_balancer_hostname" {
+  description = "Kubernetes Application hostname"
+  value = kubernetes_service.go.status.0.load_balancer.0.ingress.0.hostname
+}
