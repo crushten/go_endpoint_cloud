@@ -112,16 +112,18 @@ This covers provisioning the cloud infrastructure and deploying the application 
 This section covers provisioning the cluster.
 
 ##### Prerequisites
+* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 * [Git](https://git-scm.com/downloads)
 * [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
 ##### Instructions
 1. Once the prerequisites are installed you can clone the repo: `git clone https://github.com/crushten/go_endpoint_cloud`.
-2. Change into the `terraform` directory: `cd go_endpoint_cloud/terraform`.
-3. Initialize Terraform to download needed modules and provisioners: `terraform init`.
-4. Check for what Terraform will do: `terraform plan`.
-5. If everything looks good then provision everything: `terraform apply`.
-6. You will need to type `yes` when prompted.
+2. Make sure the AWS CLI is [setup](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and able to connect to your account.
+3. Change into the `terraform` directory: `cd go_endpoint_cloud/terraform`.
+4. Initialize Terraform to download needed modules and provisioners: `terraform init`.
+5. Check for what Terraform will do: `terraform plan`.
+6. If everything looks good then provision everything: `terraform apply`.
+7. You will need to type `yes` when prompted.
 
 ### Deploy Application
 This section covers deploying the application.
@@ -159,7 +161,7 @@ Todo
 
 ## Todo
 
-1. Need to add testing for the application.
-2. Need to verify the application is up/running.
-3. Add pipelines to lint/test/build the application and lint/test terraform files.
-4. Improve local dev experience.
+1. Need to verify the application is up/running.
+2. Add pipelines to lint/test/build the application and lint/test terraform files.
+3. Improve local dev experience.
+4. Metrics and log collection should also be setup.
