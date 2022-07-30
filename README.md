@@ -86,13 +86,19 @@ This should expose the application in your browser at `http://localhost:8080`.
 
 This section covers testing the application
 
-### Docker
-
-Todo
-
 ### Locally
+This is for testing the application locally on your machine.
 
-Todo
+##### Prerequisites
+
+* [Git](https://git-scm.com/downloads)
+* [Go](https://go.dev/doc/install)
+
+##### Instructions
+1. Once the prerequisites are installed you can clone the repo: `git clone https://github.com/crushten/go_endpoint_cloud`.
+2. Change into the `go_endpoint_cloud` directory: `cd go_endpoint_cloud`.
+3. Run `GIN_MODE=release  go test -v`.
+4. For coverage testing run: `GIN_MODE=release  go test -cover`.
 
 ### Pipeline
 
