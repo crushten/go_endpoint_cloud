@@ -8,18 +8,19 @@ resource "aws_ecr_repository" "demo-repository" {
 }
 
 provider "docker" {
-    host = "unix:///var/run/docker.sock"
+  registry_auth {
+    address  = local.aws_ecr_url
+    username = data.aws_ecr_authorization_token.token.user_name
+    password = data.aws_ecr_authorization_token.token.password
+  }
 }
 
-resource "docker_image" "go_endpoint_cloud" {
-    name = "go_endpoint_cloud"
+## Build docker images and push to ECR
+resource "docker_registry_image" "go_endpoint_cloud" {
+    name = "${aws_ecr_repository.demo-repository.repository_url}:latest"
+
     build {
-      path = "../Dockerfile"
-      tag  = ["go_endpoint_cloud:demo"] 
-    }
-}
-
-resource "docker_container" "go_endpoint_cloud" {
-    name = "go_endpoint_cloud"
-    image = docker_image.go_endpoint_cloud.latest
+        context = ".."
+        dockerfile = "Dockerfile"
+    }  
 }

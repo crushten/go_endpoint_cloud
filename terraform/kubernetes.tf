@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "go" {
   metadata {
-    name = "microservice-deployment"
+    name = "go-deployment"
     labels = {
       app  = "go_endpoint_cloud"
     }
@@ -20,7 +20,7 @@ template {
       }
 spec {
         container {
-          image = ".amazonaws.com/go_endpoint_cloud:demo"
+          image = "${aws_ecr_repository.demo-repository.repository_url}:latest"
           name  = "go_endpoint_cloud-container"
           port {
             container_port = 8080
