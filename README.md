@@ -71,16 +71,38 @@ This section covers running the application.
 
 #### Docker
 
-Once the container is built it can be run using: `docker run -p 8080:8080 go_endpoint_cloud`.
-This should expose the application in your browser at `http://localhost:8080`.
+##### Prerequisites
+
+* [curl](https://curl.se/download.html)
+
+
+##### Instructions
+
+1. Once the container is built it can be run using: `docker run -p 8080:8080 go_endpoint_cloud`.
+   This should expose the application in your browser at `http://localhost:8080`.
+2. Can use `curl` or similar tool to test the endpoints: `curl http://localhost:8080/messages` 
+   and `curl http://localhost:8080/healthcheck`.
+
 
 #### Locally
 
-Once the application has been built it can be run using: `./go_endpoint_cloud`.
-This should expose the application in your browser at `http://localhost:8080`.
+##### Prerequisites
 
-However, since the application is written in Go it can also just be run using `go run .`.
-This should expose the application in your browser at `http://localhost:8080`.
+* [curl](https://curl.se/download.html)
+
+##### Instructions
+
+1. Once the application has been built it can be run using: `./go_endpoint_cloud`.
+   This should expose the application in your browser at `http://localhost:8080`.
+2. Can use `curl` or similar tool to test the endpoints: `curl http://localhost:8080/messages` 
+   and `curl http://localhost:8080/healthcheck`.
+
+or
+
+1. Since the application is written in Go it can also just be run using `go run .`.
+   This should expose the application in your browser at `http://localhost:8080`.
+2. Can use `curl` or similar tool to test the endpoints: `curl http://localhost:8080/messages` 
+   and `curl http://localhost:8080/healthcheck`.
 
 ### Testing
 
@@ -165,3 +187,4 @@ Todo
 2. Add pipelines to lint/test/build the application and lint/test terraform files.
 3. Improve local dev experience.
 4. Metrics and log collection should also be setup.
+5. Clean up Go code and Terraform files.
