@@ -4,7 +4,8 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = "1.22" // 1.23 is due August 2022 1.24 isnt avaible yet see https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html#version-deprecation
   subnet_ids      = module.vpc.private_subnets
-
+  enable_irsa  = true
+  
   vpc_id = module.vpc.vpc_id
 
   eks_managed_node_group_defaults = {

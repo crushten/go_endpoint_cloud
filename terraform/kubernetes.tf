@@ -5,28 +5,28 @@ resource "kubernetes_deployment" "go" {
       app  = "go_endpoint_cloud"
     }
   }
-spec {
+  spec {
     replicas = 1
-selector {
+    selector {
       match_labels = {
         app  = "go_endpoint_cloud"
       }
     }
-template {
+    template {
       metadata {
         labels = {
           app  = "go_endpoint_cloud"
         }
       }
-spec {
-        container {
-          image = "${aws_ecr_repository.demo-repository.repository_url}:latest"
-          name  = "go_endpoint_cloud-container"
-          port {
+    spec {
+      container {
+        image = "${aws_ecr_repository.demo-repository.repository_url}:latest"
+        name  = "go-endpoint-cloud-container"
+      port {
             container_port = 8080
-         }
-        }
       }
+      }
+    }
     }
   }
 }
@@ -43,6 +43,6 @@ resource "kubernetes_service" "go" {
       port        = 8080
       target_port = 8080
     }
-type = "LoadBalancer"
-}
+    type = "LoadBalancer"
+  }
 }
