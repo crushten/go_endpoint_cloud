@@ -26,7 +26,7 @@ This section is for building the application in a docker container on your machi
 ##### Instructions
 
 1. Once the prerequisites are installed you can clone the repo: `git clone https://github.com/crushten/go_endpoint_cloud`.
-2. Change into the `go_endpoint_cloud` directory: `cd go_endpoint_cloud`.
+2. Change into the `go_endpoint_cloud` directory: `cd go_endpoint_cloud/application`.
 3. To build the Docker container run: `docker build -t go_endpoint_cloud:dev .`.
 
 #### Locally
@@ -40,8 +40,11 @@ This is for building the application locally on your machine.
 ##### Instructions
 
 1. Once the prerequisites are installed you can clone the repo: `git clone https://github.com/crushten/go_endpoint_cloud`.
-2. Change into the `go_endpoint_cloud` directory: `cd go_endpoint_cloud`.
+2. Change into the `go_endpoint_cloud` directory: `cd go_endpoint_cloud/application`.
 3. Run `go build .`.
+
+There is also a `go_build.sh` script that will output binaries for Linux, Windows, and Mac for amd64 and arm64.
+To use the script just run it: `./go_build.sh`.
 
 #### Pipeline
 
@@ -118,7 +121,7 @@ This is for testing the application locally on your machine.
 
 ##### Instructions
 1. Once the prerequisites are installed you can clone the repo: `git clone https://github.com/crushten/go_endpoint_cloud`.
-2. Change into the `go_endpoint_cloud` directory: `cd go_endpoint_cloud`.
+2. Change into the `go_endpoint_cloud` directory: `cd go_endpoint_cloud/application`.
 3. Run `GIN_MODE=release  go test -v`.
 4. For coverage testing run: `GIN_MODE=release  go test -cover`.
 
