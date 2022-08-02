@@ -160,7 +160,9 @@ This section covers deploying the application.
 * [Docker Desktop](https://docs.docker.com/get-docker/).
 
 ##### Instructions
-This doesn't current work. It is also tied to the provisioning process.
+1. Follow the provisioning section steps.
+2. The only new step would be to ensure the Docker daemon is running.
+   For example on Linux run: `sudo systemctl start docker`.
 
 ### Deprovisioning 
 This section covers destroying the cluster and application.
@@ -180,14 +182,9 @@ Also running `terraform plan` can find issues that `validate` wont.
 
 Todo
 
-## Know Issues
-
-1. The application deployment currently doesn't work. Need to figure out how to push the container to ECR.
-
 ## Todo
 
-1. Need to verify the application is up/running.
-2. Add pipelines to lint/test/build the application and lint/test terraform files.
-3. Improve local dev experience.
-4. Metrics and log collection should also be setup.
-5. Clean up Go code and Terraform files.
+1. Add pipelines to lint/test/build the application and lint/test terraform files.
+2. Improve local dev experience.
+3. Metrics and log collection should also be setup.
+4. Clean up Go code and Terraform files.
