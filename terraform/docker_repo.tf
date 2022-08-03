@@ -12,7 +12,7 @@ resource "docker_registry_image" "go_endpoint_cloud" {
     name = "${aws_ecr_repository.demo-repository.repository_url}:latest"
 
     build {
-        context = "${path.cwd}/application"
+        context = "../application"
         dockerfile = "Dockerfile"
     }  
 }
