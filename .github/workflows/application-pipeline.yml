@@ -1,4 +1,4 @@
-name: Application Build
+name: Application Test and Build
 
 on:
   #workflow_dispatch:
@@ -8,6 +8,26 @@ on:
     branches: [ main ]
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-20.04
+    steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go version
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'application/go.mod'
+      - run: go version
+
+      - name: Run Go linting
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: "v1.48.0"
+          working-directory: application/
+
   test:
     name: Test
     runs-on: ubuntu-20.04
@@ -28,17 +48,50 @@ jobs:
        - name: Run Go vet
          run: cd application/ && go vet
 
-       - name: Run staticcheck
-         uses: dominikh/staticcheck-action@v1.2.0
-         with:
-          version: "v0.3.3"
-          install-go: false
-          working-directory: application/
-
        - name: Run Go test
          run: cd application/ && GIN_MODE=release go test -v
 
        - name: Check coverage
          run: cd application/ && GIN_MODE=release go test -cover
-         
-         
+
+  audit:
+    name: Audit
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go version
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'application/go.mod'
+      - run: go version
+
+      - name: Run Go Sec
+        uses: securego/gosec@v2.12.0
+        with:
+          args: application/
+
+      - name: Create Go dep list
+        run: cd application/ && go list -json -m all > go.list
+
+      - name: Scan with specific Nancy version
+        uses: sonatype-nexus-community/nancy-github-action@v1.0.2
+        with:
+          nancyVersion: "v1.0.37"
+          goListFile: application/go.list
+
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go version
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'application/go.mod'
+      - run: go version
