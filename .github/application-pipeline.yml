@@ -1,0 +1,43 @@
+name: Application Build
+
+on:
+  #workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+
+       - name: Checkout 
+         uses: actions/checkout@v3
+
+       - name: Setup Go version
+         uses: actions/setup-go@v3
+         with:
+          go-version-file: 'application/go.mod'
+       - run: go version
+
+       - name: Verify dependencies
+         run: cd application/ && go mod verify
+
+       - name: Run Go vet
+         run: cd application/ && go vet
+
+       - name: Install staticcheck
+         run: go install honnef.co/go/tools/cmd/staticcheck@v0.3.3
+
+       - name: Run staticcheck
+         run: cd application/ && staticcheck
+
+       - name: Run Go test
+         run: cd application/ && go test -v
+
+       - name: Check coverage
+         run: cd application/ && go test -cover
+         
+         
