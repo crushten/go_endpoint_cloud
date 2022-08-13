@@ -4,7 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin" //#nosec
+	/* #nosec */
+	"github.com/gin-gonic/gin"
 )
 
 // message represents data about a message post
