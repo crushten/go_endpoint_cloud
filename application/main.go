@@ -36,5 +36,8 @@ func main() {
 	router.GET("/messages", getMessages)
 	router.GET("/healthcheck", getHealthCheck)
 
-	router.Run("0.0.0.0:8080")
+	err := router.Run("0.0.0.0:8080")
+	if err != nil {
+		panic("Cannot run server: " + err.Error())
+	}
 }

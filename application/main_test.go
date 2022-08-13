@@ -24,7 +24,10 @@ func TestMessage(t *testing.T) {
 	r.ServeHTTP(w, req)
 
 	var messages []message
-	json.Unmarshal(w.Body.Bytes(), &messages)
+	err := json.Unmarshal(w.Body.Bytes(), &messages)
+	if err != nil {
+		panic(err)
+	}
 
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.NotEmpty(t, messages)
