@@ -72,10 +72,11 @@ jobs:
           go-version-file: 'application/go.mod'
       - run: go version
 
-      - name: Run Go Sec
-        uses: securego/gosec@v2.12.0
-        with:
-          args: application/
+      - name: Install gosec
+        run: go install github.com/securego/gosec/v2/cmd/gosec@v2.12.0
+
+      - name: Run gosec
+        run: cd application/ && gosec -tests .
 
       - name: Create Go dep list
         run: cd application/ && go list -json -m all > go.list

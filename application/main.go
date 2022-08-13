@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"time"
 
-	/* #nosec */
 	"github.com/gin-gonic/gin"
 )
 
