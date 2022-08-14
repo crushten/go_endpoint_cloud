@@ -32,6 +32,7 @@ func getHealthCheck(c *gin.Context) {
 }
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.GET("/messages", getMessages)
 	router.GET("/healthcheck", getHealthCheck)
