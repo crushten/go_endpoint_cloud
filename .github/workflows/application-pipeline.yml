@@ -28,6 +28,16 @@ jobs:
           version: "v1.48.0"
           working-directory: application/
 
+      - name: Install goreleaser
+        uses: goreleaser/goreleaser-action@v3
+        with:
+          distribution: goreleaser
+          version: v1.10.3
+          install-only: true
+      
+      - name: Run goreleaser check
+        run: goreleaser check
+
   test:
     name: Test
     needs: lint
@@ -95,9 +105,24 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all tags
+        run: git fetch --force --tags
 
       - name: Setup Go version
         uses: actions/setup-go@v3
         with:
           go-version-file: 'application/go.mod'
       - run: go version
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v3
+        with:
+          distribution: goreleaser
+          version: v1.10.3
+          args: build --rm-dist
+          workdir: application/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
