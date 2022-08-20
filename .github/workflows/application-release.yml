@@ -1,0 +1,38 @@
+name: Application Release
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+
+jobs:
+  release:
+    name: Release
+    needs: audit
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all tags
+        run: git fetch --force --tags
+
+      - name: Setup Go version
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'application/go.mod'
+      - run: go version
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v3
+        with:
+          distribution: goreleaser
+          version: v1.10.3
+          args: release --rm-dist
+          workdir: application/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

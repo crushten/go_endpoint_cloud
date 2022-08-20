@@ -1,7 +1,6 @@
 name: Application Test and Build
 
 on:
-  #workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -60,42 +59,10 @@ jobs:
          run: cd application/ && go vet
 
        - name: Run Go test
-         run: cd application/ && GIN_MODE=release go test -v
+         run: cd application/ && go test -v
 
        - name: Check coverage
-         run: cd application/ && GIN_MODE=release go test -cover
-
-  audit:
-    name: Audit
-    needs: test
-    runs-on: ubuntu-20.04
-    env:
-      GO111MODULE: on
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Go version
-        uses: actions/setup-go@v3
-        with:
-          go-version-file: 'application/go.mod'
-      - run: go version
-
-      - name: Install gosec
-        run: go install github.com/securego/gosec/v2/cmd/gosec@v2.12.0
-
-      - name: Run gosec
-        run: cd application/ && gosec -tests .
-
-      - name: Create Go dep list
-        run: cd application/ && go list -json -m all > go.list
-
-      - name: Scan with specific Nancy version
-        uses: sonatype-nexus-community/nancy-github-action@v1.0.2
-        with:
-          nancyVersion: "v1.0.37"
-          goListFile: application/go.list
+         run: cd application/ && go test -cover
 
   build:
     name: Build
@@ -122,7 +89,5 @@ jobs:
         with:
           distribution: goreleaser
           version: v1.10.3
-          args: build --rm-dist
+          args: build --rm-dist --snapshot
           workdir: application/
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
