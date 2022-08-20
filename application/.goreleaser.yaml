@@ -18,6 +18,7 @@ archives:
   - format_overrides:
       - goos: windows
         format: zip
+        
 nfpms:
   - formats:
       - apk
@@ -29,13 +30,13 @@ dockers:
   - image_templates:
     - "go_endpoint_cloud:{{ .Tag }}-amd64"
     dockerfile: 'application/Dockerfile'
-    skip_push: true
+    skip_push: "true"
     goos: linux
     goarch: amd64
   - image_templates:
     - "go_endpoint_cloud:{{ .Tag }}-arm64"
     dockerfile: 'application/Dockerfile'
-    skip_push: true
+    skip_push: "true"
     goos: linux
     goarch: arm64
 
