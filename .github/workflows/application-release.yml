@@ -26,6 +26,9 @@ jobs:
           go-version-file: 'application/go.mod'
       - run: go version
 
+      - name: Install syft
+        run: go install https://github.com/anchore/syft@v0.54.0
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v3
         with:
