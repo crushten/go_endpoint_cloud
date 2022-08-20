@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM golang:1.18.4 AS build
+FROM golang:1.18.5 AS build
 
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends build-essential gcc && rm -rf /var/lib/apt/lists/*
