@@ -3,15 +3,12 @@ name: Scan
 # Run workflow each time code is pushed to your repository and on a schedule.
 # The scheduled workflow runs every day at 03:00 UTC time.
 on:
-  push:
-  pull_request:
   schedule:
   - cron: '0 3 * * *'
 
 jobs:
   audit:
     name: Audit
-    needs: test
     runs-on: ubuntu-20.04
     env:
       GO111MODULE: on
