@@ -12,7 +12,6 @@ builds:
     goarch:
       - amd64
       - arm64
-    dir: application/
 
 archives:
   - format_overrides:
@@ -29,13 +28,13 @@ nfpms:
 dockers:
   - image_templates:
     - "go_endpoint_cloud:{{ .Tag }}-amd64"
-    dockerfile: 'application/Dockerfile'
+    dockerfile: 'Dockerfile'
     skip_push: "true"
     goos: linux
     goarch: amd64
   - image_templates:
     - "go_endpoint_cloud:{{ .Tag }}-arm64"
-    dockerfile: 'application/Dockerfile'
+    dockerfile: 'Dockerfile'
     skip_push: "true"
     goos: linux
     goarch: arm64
