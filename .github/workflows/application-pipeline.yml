@@ -139,3 +139,32 @@ jobs:
           version: v1.10.3
           args: build --rm-dist --snapshot
           workdir: application/
+
+  docker-build:
+    name: Docker Build
+    needs: docker-lint
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build the Docker image
+        uses: docker/build-push-action@v3.1.1
+        with:
+          context: application/Dockerfile
+          tags: go_endpoint_cloud_docker:${{ github.sha }}
+          outputs: type=docker,dest=/tmp/go_endpoint_cloud_docker.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: go_endpoint_cloud_docker
+          path: /tmp/go_endpoint_cloud_docker.tar
+          retention-days: 1
