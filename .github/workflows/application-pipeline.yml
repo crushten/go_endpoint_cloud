@@ -158,7 +158,7 @@ jobs:
       - name: Build the Docker image
         uses: docker/build-push-action@v3.1.1
         with:
-          context: application/Dockerfile
+          context: application/
           tags: go_endpoint_cloud_docker:${{ github.sha }}
           outputs: type=docker,dest=/tmp/go_endpoint_cloud_docker.tar
 
