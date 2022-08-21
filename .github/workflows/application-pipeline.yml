@@ -37,6 +37,22 @@ jobs:
       - name: Run goreleaser check
         run: goreleaser check
 
+  docker-lint:
+    name: Docker Lint
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - uses: hadolint/hadolint-action@v2.1.0
+        with:
+          dockerfile: application/Dockerfile
+
+      - uses: hadolint/hadolint-action@v2.1.0
+        with:
+          dockerfile: application/goreleaser.Dockerfile
+
   test:
     name: Test
     needs: lint
