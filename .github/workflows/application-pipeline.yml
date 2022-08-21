@@ -168,3 +168,30 @@ jobs:
           name: go_endpoint_cloud_docker
           path: /tmp/go_endpoint_cloud_docker.tar
           retention-days: 1
+
+  docker-scan:
+    name: Docker Scan
+    needs: docker-scan
+    runs-on: ubuntu-20.04
+    steps:
+
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: go_endpoint_cloud_docker
+        path: /tmp
+
+    - name: Load image into Docker
+      run: |
+        docker load --input /tmp/go_endpoint_cloud_docker.tar
+        docker image ls -a
+
+    - name: Run Aqua Security Trivy
+      uses: aquasecurity/trivy-action@0.7.1
+      with:
+        image-ref: 'go_endpoint_cloud_docker:${{ github.sha }}'
+        format: 'table'
+        exit-code: '0'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH,MEDIUM,LOW'
