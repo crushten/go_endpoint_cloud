@@ -171,7 +171,7 @@ jobs:
 
   docker-scan:
     name: Docker Scan
-    needs: docker-scan
+    needs: docker-build
     runs-on: ubuntu-20.04
     steps:
 
