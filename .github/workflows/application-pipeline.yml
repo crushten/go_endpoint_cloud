@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Application Lint
     runs-on: ubuntu-20.04
     steps:
     
@@ -54,7 +54,7 @@ jobs:
           dockerfile: application/goreleaser.Dockerfile
 
   test:
-    name: Test
+    name: Application Test
     needs: lint
     runs-on: ubuntu-20.04
     steps:
@@ -81,7 +81,7 @@ jobs:
          run: cd application/ && go test -cover
          
   audit:
-    name: Audit
+    name: Application Scan
     needs: test
     runs-on: ubuntu-20.04
     env:
@@ -113,7 +113,7 @@ jobs:
           goListFile: application/go.list
 
   build:
-    name: Build
+    name: Application Build
     needs: audit
     runs-on: ubuntu-20.04
     steps:
