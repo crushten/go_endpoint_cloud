@@ -29,11 +29,13 @@ dockers:
   - image_templates:
     - "ghcr.io/crushten/go_endpoint_cloud:{{ .Tag }}-amd64"
     dockerfile: 'goreleaser.Dockerfile'
+    use: buildx
     goos: linux
     goarch: amd64
   - image_templates:
     - "ghcr.io/crushten/go_endpoint_cloud:{{ .Tag }}-arm64"
     dockerfile: 'goreleaser.Dockerfile'
+    use: buildx
     goos: linux
     goarch: arm64
 
