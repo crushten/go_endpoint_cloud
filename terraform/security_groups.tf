@@ -6,9 +6,9 @@ resource "aws_security_group" "eks_managed_node_group_one" {
   #checkov:skip=CKV_AWS_5:This is assigned in main.tf
 
   ingress {
-    from_port = 22
-    to_port   = 22
-    protocol  = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     describtion = "Allow SSH on port 22"
 
     cidr_blocks = [
