@@ -53,6 +53,43 @@ jobs:
         with:
           dockerfile: application/goreleaser.Dockerfile
 
+  terraform-lint:
+    name: Terraform Lint
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.2.8
+
+      - name: Terraform fmt
+        run: cd terraform/ && terraform fmt -check
+        #continue-on-error: true
+
+      - name: Terraform init
+        run: cd terraform/ && terraform init
+
+      - name: Terraform Validate
+        run: cd terraform/ && terraform validate -no-color
+
+      - name: Setup tflint
+        uses: terraform-linters/setup-tflint@v2
+        with:
+          tflint_version: v0.39.3
+
+      - name: Show tflint version
+        run: tflint --version
+
+      - name: Init tflint
+        run: cd terraform/ && tflint --init
+
+      - name: Run tflint
+        run: cd terraform/ && tflint -f compact
+
   test:
     name: Application Test
     needs: lint
