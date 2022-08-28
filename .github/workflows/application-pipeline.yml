@@ -133,7 +133,7 @@ jobs:
        - name: Terraform init
          run: cd terraform/ && terraform init
 
-       - name: Terraform Plan
+       #- name: Terraform Plan
          #run: cd terraform/ && terraform plan -no-color
 
   audit:
