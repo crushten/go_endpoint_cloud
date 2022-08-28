@@ -1,11 +1,15 @@
 resource "aws_security_group" "eks_managed_node_group_one" {
   name_prefix = "eks_managed_node_group_one"
+  description = "Allow inbound traffic to EKS from VPC CIDR"
   vpc_id      = module.vpc.vpc_id
+
+  #checkov:skip=CKV_AWS_5:This is assigned in main.tf
 
   ingress {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
+    describtion = "Allow SSH on port 22"
 
     cidr_blocks = [
       "10.0.0.0/8",
