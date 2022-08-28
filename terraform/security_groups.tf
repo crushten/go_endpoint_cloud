@@ -9,7 +9,7 @@ resource "aws_security_group" "eks_managed_node_group_one" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    describtion = "Allow SSH on port 22"
+    description = "Allow SSH on port 22"
 
     cidr_blocks = [
       "10.0.0.0/8",
