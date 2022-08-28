@@ -68,7 +68,6 @@ jobs:
 
       - name: Terraform fmt
         run: cd terraform/ && terraform fmt -check
-        #continue-on-error: true
 
       - name: Terraform init
         run: cd terraform/ && terraform init
@@ -117,6 +116,23 @@ jobs:
        - name: Check coverage
          run: cd application/ && go test -cover
          
+  terraform-test:
+    name: Terraform Test
+    needs: terraform-lint
+    runs-on: ubuntu-20.04
+    steps:
+
+       - name: Checkout 
+         uses: actions/checkout@v3
+
+       - name: Setup Terraform
+         uses: hashicorp/setup-terraform@v2
+         with:
+           terraform_version: 1.2.8
+
+       - name: Terraform Plan
+         run: cd terraform/ && terraform plan -no-color
+
   audit:
     name: Application Scan
     needs: test
@@ -149,6 +165,39 @@ jobs:
           nancyVersion: "v1.0.37"
           goListFile: application/go.list
 
+  terraform-scan:
+    name: Terraform Scan
+    needs: terraform-test
+    runs-on: ubuntu-20.04
+    steps:
+
+       - name: Checkout 
+         uses: actions/checkout@v3
+
+       - name: Setup Terraform
+         uses: hashicorp/setup-terraform@v2
+         with:
+           terraform_version: 1.2.8
+
+       - name: Run tfsec
+         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+         with:
+           working_directory: terraform/
+           tfsec_version: 1.27.5
+
+       - name: Run Checkov
+         uses: bridgecrewio/checkov-action@v12.1347.0
+         with:
+           directory: terraform/
+
+       - name: Run Terrascan
+         uses: tenable/terrascan-action@v1.4.1
+         with:
+          iac_type: 'terraform'
+          iac_version: 'v14'
+          iac_dir: terraform/
+          #policy_type: 'aws'
+          
   build:
     name: Application Build
     needs: audit
