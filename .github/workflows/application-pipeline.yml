@@ -186,7 +186,7 @@ jobs:
          uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
          with:
            working_directory: terraform/
-           tfsec_version: 1.27.5
+           tfsec_version: v1.27.5
 
        - name: Run Checkov
          uses: bridgecrewio/checkov-action@v12.1347.0
