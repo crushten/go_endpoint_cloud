@@ -193,7 +193,7 @@ jobs:
          uses: bridgecrewio/checkov-action@v12.1347.0
          with:
            directory: terraform/
-           download_external_modules: true
+           #download_external_modules: true
 
        - name: Run Terrascan
          uses: tenable/terrascan-action@v1.4.1

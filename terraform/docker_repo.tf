@@ -8,7 +8,7 @@ resource "aws_ecr_repository" "demo-repository" {
   }
 
   encryption_configuration {
-    encryption_type = "AES256"
+    encryption_type = "KMS"
   }
 }
 

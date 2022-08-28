@@ -3,7 +3,7 @@ resource "aws_security_group" "eks_managed_node_group_one" {
   description = "Allow inbound traffic to EKS from VPC CIDR"
   vpc_id      = module.vpc.vpc_id
 
-  #checkov:skip=CKV_AWS_5:This is assigned in main.tf
+  #checkov:skip=CKV2_AWS_5:This is assigned in main.tf
 
   ingress {
     from_port   = 22
