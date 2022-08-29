@@ -201,6 +201,7 @@ jobs:
           iac_type: 'terraform'
           iac_version: 'v14'
           iac_dir: terraform/
+          only_warn: true
           #policy_type: 'aws'
           
   build:
