@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "go" {
 
       spec {
         container {
-          image = "${aws_ecr_repository.demo-repository.repository_url}:latest"
+          image = "${aws_ecr_repository.go-repository.repository_url}:latest"
           name  = "go-endpoint-cloud-container"
           port {
             container_port = 8080
@@ -77,3 +77,48 @@ resource "kubernetes_service" "go" {
     type = "LoadBalancer"
   } //spec
 }   //resource service
+
+resource "kubernetes_pod_security_policy" "go" {
+  metadata {
+    name = "tgo-endpoint-cloud-security-policy"
+  }
+  spec {
+    privileged                 = false
+    allow_privilege_escalation = false
+
+    volumes = [
+      "configMap",
+      "emptyDir",
+      "projected",
+      "secret",
+      "downwardAPI",
+      "persistentVolumeClaim",
+    ]
+
+    run_as_user {
+      rule = "MustRunAsNonRoot"
+    }
+
+    se_linux {
+      rule = "RunAsAny"
+    }
+
+    supplemental_groups {
+      rule = "MustRunAs"
+      range {
+        min = 1
+        max = 65535
+      }
+    }
+
+    fs_group {
+      rule = "MustRunAs"
+      range {
+        min = 1
+        max = 65535
+      }
+    }
+
+    read_only_root_filesystem = true
+  }
+}

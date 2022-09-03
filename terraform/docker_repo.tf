@@ -1,5 +1,5 @@
-resource "aws_ecr_repository" "demo-repository" {
-  name                 = "demo-repo"
+resource "aws_ecr_repository" "go-repository" {
+  name                 = "go-repo"
   image_tag_mutability = "IMMUTABLE"
   force_delete         = true
 
@@ -14,7 +14,7 @@ resource "aws_ecr_repository" "demo-repository" {
 
 ## Build docker images and push to ECR
 resource "docker_registry_image" "go_endpoint_cloud" {
-  name = "${aws_ecr_repository.demo-repository.repository_url}:latest"
+  name = "${aws_ecr_repository.go-repository.repository_url}:latest"
 
   build {
     context    = "../application"
