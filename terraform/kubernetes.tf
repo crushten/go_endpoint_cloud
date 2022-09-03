@@ -33,6 +33,11 @@ resource "kubernetes_deployment" "go" {
         container {
           image = "${aws_ecr_repository.go-repository.repository_url}:latest"
           name  = "go-endpoint-cloud-container"
+          security_context {
+            seccomp_profile {
+              type = "RuntimeDefault"
+            }
+          }
           port {
             container_port = 8080
           } //port
@@ -80,7 +85,7 @@ resource "kubernetes_service" "go" {
 
 resource "kubernetes_pod_security_policy" "go" {
   metadata {
-    name = "tgo-endpoint-cloud-security-policy"
+    name = "go-endpoint-cloud-security-policy"
   }
   spec {
     privileged                 = false
