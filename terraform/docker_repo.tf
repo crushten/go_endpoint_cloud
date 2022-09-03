@@ -21,3 +21,41 @@ resource "docker_registry_image" "go_endpoint_cloud" {
     dockerfile = "Dockerfile"
   }
 }
+
+resource "aws_ecr_repository_policy" "go-repository-policy" {
+  repository = aws_ecr_repository.go-repository.name
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ECR",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:BatchDeleteImage",
+                "ecr:BatchGetImage",
+                "ecr:CompleteLayerUpload",
+                "ecr:CreateRepository",
+                "ecr:DeleteRepository",
+                "ecr:DeleteRepositoryPolicy",
+                "ecr:DescribeImages",
+                "ecr:DescribeRepositories",
+                "ecr:GetAuthorizationToken",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:GetLifecyclePolicy",
+                "ecr:GetRepositoryPolicy",
+                "ecr:InitiateLayerUpload",
+                "ecr:ListImages",
+                "ecr:ListTagsForResource",
+                "ecr:PutImage",
+                "ecr:SetRepositoryPolicy",
+                "ecr:UploadLayerPart"
+            ]
+        }
+    ]
+}
+EOF
+}
