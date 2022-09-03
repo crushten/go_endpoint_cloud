@@ -32,7 +32,6 @@ resource "aws_ecr_repository_policy" "go-repository-policy" {
         {
             "Sid": "ECR",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "ecr:BatchCheckLayerAvailability",
                 "ecr:BatchDeleteImage",
