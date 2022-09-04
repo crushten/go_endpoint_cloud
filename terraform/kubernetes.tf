@@ -7,12 +7,12 @@ resource "kubernetes_namespace" "godemo" {
 
 resource "kubernetes_deployment" "go" {
   metadata {
-    name = "go-deployment"
+    name      = "go-deployment"
     namespace = kubernetes_namespace.godemo.metadata.0.name
     labels = {
       app = "go_endpoint_cloud"
     } //labels
-  } //metadata
+  }   //metadata
 
   spec {
     replicas = 1
@@ -20,14 +20,14 @@ resource "kubernetes_deployment" "go" {
       match_labels = {
         app = "go_endpoint_cloud"
       } //match_labels
-    } //selector
+    }   //selector
 
     template {
       metadata {
         labels = {
           app = "go_endpoint_cloud"
         } //labels
-      } //metadata
+      }   //metadata
       spec {
         security_context {
           seccomp_profile {
