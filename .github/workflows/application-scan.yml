@@ -125,4 +125,5 @@ jobs:
           iac_version: 'v14'
           iac_dir: terraform/
           only_warn: true
+          config_path: terraform/terrascan.config.toml
           #policy_type: 'aws'

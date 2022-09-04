@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "godemo" {
 }
 
 resource "kubernetes_deployment" "go" {
-  #ts:skip=AC-K8-NS-PO-M-0122 Not sure what it wants
+  #ts:skip=AC_K8S_0064 Not sure what it wants
   metadata {
     name      = "go-deployment"
     namespace = kubernetes_namespace.godemo.metadata.0.name
@@ -86,7 +86,7 @@ resource "kubernetes_service" "go" {
 }   //resource service
 
 resource "kubernetes_pod_security_policy" "go" {
-  #ts:skip=AC-K8-IA-PO-M-0141 seccomp doesnt go here
+  #ts:skip=AC_K8S_0080 seccomp doesnt go here
   metadata {
     name = "go-endpoint-cloud-security-policy"
   }
