@@ -91,3 +91,38 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+
+  terraform-scan:
+    name: Terraform Scan
+    runs-on: ubuntu-20.04
+    steps:
+
+       - name: Checkout 
+         uses: actions/checkout@v3
+
+       - name: Setup Terraform
+         uses: hashicorp/setup-terraform@v2
+         with:
+           terraform_version: 1.2.8
+
+       - name: Run tfsec
+         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+         with:
+           working_directory: terraform/
+           tfsec_version: v1.27.5
+           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+       - name: Run Checkov
+         uses: bridgecrewio/checkov-action@v12.1347.0
+         with:
+           directory: terraform/
+           #download_external_modules: true
+
+       - name: Run Terrascan
+         uses: tenable/terrascan-action@v1.4.1
+         with:
+          iac_type: 'terraform'
+          iac_version: 'v14'
+          iac_dir: terraform/
+          only_warn: true
+          #policy_type: 'aws'
