@@ -7,37 +7,38 @@ resource "kubernetes_namespace" "godemo" {
 
 resource "kubernetes_deployment" "go" {
   metadata {
-    name      = "go-deployment"
+    name = "go-deployment"
     namespace = kubernetes_namespace.godemo.metadata.0.name
     labels = {
       app = "go_endpoint_cloud"
     } //labels
-  }   //metadata
+  } //metadata
 
   spec {
     replicas = 1
     selector {
       match_labels = {
         app = "go_endpoint_cloud"
-      } //selector
-    }   //spec
+      } //match_labels
+    } //selector
 
     template {
       metadata {
         labels = {
           app = "go_endpoint_cloud"
         } //labels
-      }   //metadata
-
+      } //metadata
       spec {
+        security_context {
+          seccomp_profile {
+            type = "RuntimeDefault"
+          }
+        } //pod security context
         container {
           image = "${aws_ecr_repository.go-repository.repository_url}:latest"
           name  = "go-endpoint-cloud-container"
           security_context {
-            seccomp_profile {
-              type = "RuntimeDefault"
-            }
-          }
+          } //container security context
           port {
             container_port = 8080
           } //port
@@ -62,7 +63,7 @@ resource "kubernetes_deployment" "go" {
         }   //container
       }     //spec
     }       //template
-  }         //s[ec]
+  }         //spec
 }           //resource deployment
 
 resource "kubernetes_service" "go" {
