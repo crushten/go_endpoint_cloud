@@ -25,7 +25,7 @@ require (
 	golang.org/x/crypto v0.0.0-20220314234659-1baeb1ce4c0b // indirect
 	golang.org/x/net v0.0.0-20220906165146-f3363e06e74c // indirect
 	golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/text v0.3.8 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
