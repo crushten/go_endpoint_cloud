@@ -14,7 +14,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.1.0
 
       - name: Setup Go version
         uses: actions/setup-go@v3
@@ -34,7 +34,7 @@ jobs:
       - name: Scan application with Nancy
         uses: sonatype-nexus-community/nancy-github-action@v1.0.2
         with:
-          nancyVersion: "v1.0.37"
+          nancyVersion: "v1.0.41"
           goListFile: application/go.list
 
   docker-build:
@@ -43,16 +43,16 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.1.0
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v2.1.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v2.1.0
 
       - name: Build the Docker image
-        uses: docker/build-push-action@v3.1.1
+        uses: docker/build-push-action@v3.2.0
         with:
           context: application/
           tags: go_endpoint_cloud_docker:${{ github.sha }}
@@ -98,10 +98,10 @@ jobs:
     steps:
 
        - name: Checkout 
-         uses: actions/checkout@v3
+         uses: actions/checkout@v3.1.0
 
        - name: Setup Terraform
-         uses: hashicorp/setup-terraform@v2
+         uses: hashicorp/setup-terraform@v2.0.2
          with:
            terraform_version: 1.2.8
 
