@@ -78,7 +78,7 @@ jobs:
 
       - name: Terraform init
         id: terraform-lint-init
-        run: cd terraform/ && terraform init
+        run: cd terraform/ && terraform init -input=false
 
       - name: Terraform validate
         uses: dflook/terraform-validate@v1.29.0
@@ -147,7 +147,7 @@ jobs:
 
        - name: Terraform init
          id: terraform-lint-init
-         run: cd terraform/ && terraform init >> $GITHUB_OUTPUT
+         run: cd terraform/ && terraform init -input=false
 
        #- name: Terraform Plan
          #run: cd terraform/ && terraform plan -no-color
