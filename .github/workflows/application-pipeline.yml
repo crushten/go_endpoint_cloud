@@ -24,7 +24,7 @@ jobs:
       - name: Run Go linting
         uses: golangci/golangci-lint-action@v3.3.0
         with:
-          version: "v1.50.1.0"
+          version: "v1.50.1"
           working-directory: application/
 
       - name: Install goreleaser
