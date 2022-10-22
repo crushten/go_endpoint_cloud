@@ -147,7 +147,7 @@ jobs:
 
        - name: Terraform init
          id: terraform-lint-init
-         run: cd terraform/ && terraform init -input=false
+         run: cd terraform/ && terraform init -input=false >> $GITHUB_ENV
 
        #- name: Terraform Plan
          #run: cd terraform/ && terraform plan -no-color
@@ -206,7 +206,7 @@ jobs:
            github_token: ${{ secrets.GITHUB_TOKEN }}
 
        - name: Run Checkov
-         uses: bridgecrewio/checkov-action@v12.1347.0
+         uses: bridgecrewio/checkov-action@vv12.1810.0
          with:
            directory: terraform/
            #download_external_modules: true
