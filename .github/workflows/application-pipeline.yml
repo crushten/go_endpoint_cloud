@@ -67,16 +67,31 @@ jobs:
           terraform_version: 1.2.8
 
       - name: Terraform fmt
-        run: cd terraform/ && terraform fmt -check
+        uses: dflook/terraform-fmt-check@v1.29.0
+        id: terraform-lint-fmt-check
+        with:
+          path: terraform/
+
+      - name: Wrong formatting found
+        if: ${{ failure() && steps.terraform-lint-fmt-check.outputs.failure-reason == 'check-failed' }}
+        run: echo "terraform formatting check failed"
 
       - name: Terraform init
-        run: cd terraform/ && terraform init
+        id: terraform-lint-init
+        run: cd terraform/ && terraform init >> $GITHUB_OUTPUT
 
-      - name: Terraform Validate
-        run: cd terraform/ && terraform validate -no-color
+      - name: Terraform validate
+        uses: dflook/terraform-validate@v1.29.0
+        id: terraform-lint-validate
+        with:
+          path: terraform/
+
+      - name: Validate failed
+        if: ${{ failure() && steps.terraform-lint-validate.outputs.failure-reason == 'validate-failed' }}
+        run: echo "terraform validate failed"
 
       - name: Setup tflint
-        uses: terraform-linters/setup-tflint@v2
+        uses: terraform-linters/setup-tflint@v2.0.1
         with:
           tflint_version: v0.39.3
 
@@ -131,7 +146,8 @@ jobs:
            terraform_version: 1.2.8
 
        - name: Terraform init
-         run: cd terraform/ && terraform init
+         id: terraform-lint-init
+         run: cd terraform/ && terraform init >> $GITHUB_OUTPUT
 
        #- name: Terraform Plan
          #run: cd terraform/ && terraform plan -no-color
