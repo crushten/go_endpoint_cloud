@@ -16,22 +16,22 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       - name: Setup Go version
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v3.3.1
         with:
           go-version-file: 'application/go.mod'
       - run: go version
 
       - name: Run Go linting
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v3.3.0
         with:
-          version: "v1.48.0"
+          version: "v1.50.1.0"
           working-directory: application/
 
       - name: Install goreleaser
-        uses: goreleaser/goreleaser-action@v3
+        uses: goreleaser/goreleaser-action@v3.2.0
         with:
           distribution: goreleaser
-          version: v1.10.3
+          version: v1.12.3
           install-only: true
       
       - name: Run goreleaser check
@@ -99,7 +99,7 @@ jobs:
          uses: actions/checkout@v3.1.0
 
        - name: Setup Go version
-         uses: actions/setup-go@v3
+         uses: actions/setup-go@v3.3.1
          with:
           go-version-file: 'application/go.mod'
        - run: go version
@@ -148,7 +148,7 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       - name: Setup Go version
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v3.3.1
         with:
           go-version-file: 'application/go.mod'
       - run: go version
@@ -220,7 +220,7 @@ jobs:
         run: git fetch --force --tags
 
       - name: Setup Go version
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v3.3.1
         with:
           go-version-file: 'application/go.mod'
       - run: go version
@@ -256,7 +256,7 @@ jobs:
           outputs: type=docker,dest=/tmp/go_endpoint_cloud_docker.tar
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: go_endpoint_cloud_docker
           path: /tmp/go_endpoint_cloud_docker.tar
@@ -269,7 +269,7 @@ jobs:
     steps:
 
     - name: Download artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v3.0.1
       with:
         name: go_endpoint_cloud_docker
         path: /tmp
