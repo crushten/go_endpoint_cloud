@@ -169,13 +169,11 @@ jobs:
           go-version-file: 'application/go.mod'
       - run: go version
 
+      - name: Install govulncheck
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+
       - name: Run govulncheck
-        uses: Templum/govulncheck-action@v0.0.5
-        with:
-          go-version: 1.18
-          vulncheck-version: latest
-          package: cd application/
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        run: cd application/ && govulncheck ./...
 
       - name: Create Go dep list
         run: cd application/ && go list -json -m all > go.list
