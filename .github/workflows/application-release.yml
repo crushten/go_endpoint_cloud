@@ -8,4 +8,4 @@ on:
 jobs:
   golang_release:
     name: Golang Release
-    uses: crushten/github_workflow_repo/.github/workflows/golang_application_release.yml@main
+    uses: crushten/github_workflow_repo/.github/workflows/go_application_release.yml@main
