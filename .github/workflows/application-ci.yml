@@ -1,0 +1,22 @@
+name: Golang CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Golang Lint
+    uses: crushten/github_workflow_repo/.github/workflows/golang_application_lint.yml@main
+  
+  test:
+    name: Golang Test
+    needs: lint
+    uses: crushten/github_workflow_repo/.github/workflows/golang_application_test.yml@main
+
+  scan:
+    name: Golang Scan
+    needs: test
+    uses: crushten/github_workflow_repo/.github/workflows/golang_application_scan.yml@main
