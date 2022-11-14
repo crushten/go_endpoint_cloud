@@ -1,0 +1,37 @@
+linters:
+    disable-all: true
+    enable:
+      - bodyclose
+      - depguard
+      - dupl
+      - errcheck
+      - exportloopref
+      - goconst
+      - gocritic
+      - gocyclo
+      - godot
+      - gofmt
+      - goimports
+      - gomnd
+      - gosec
+      - gosimple
+      - govet
+      - ineffassign
+      - misspell
+      - nakedret
+      - paralleltest
+      - prealloc
+      - predeclared
+      - revive
+      - staticcheck
+      - stylecheck
+      - thelper
+      - tparallel
+      - typecheck
+      - unconvert
+      - unparam
+      - unused
+      - usestdlibvars
+      - varnamelen
+      - whitespace
+      - wsl

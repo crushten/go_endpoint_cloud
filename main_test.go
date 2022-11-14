@@ -10,38 +10,47 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// Setup sn instance of Gin router
+// Setup sn instance of Gin router.
 func SetUpRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
+
 	return router
 }
 
 func TestMessage(t *testing.T) {
-	r := SetUpRouter()
-	r.GET("/messages", getMessages)
-	req, _ := http.NewRequest("GET", "/messages", nil)
-	w := httptest.NewRecorder()
-	r.ServeHTTP(w, req)
+	t.Parallel()
+
+	router := SetUpRouter()
+	router.GET("/messages", getMessages)
+
+	req, _ := http.NewRequest(http.MethodGet, "/messages", nil)
+
+	write := httptest.NewRecorder()
+	router.ServeHTTP(write, req)
 
 	var messages []message
-	err := json.Unmarshal(w.Body.Bytes(), &messages)
+	err := json.Unmarshal(write.Body.Bytes(), &messages)
+
 	if err != nil {
 		panic(err)
 	}
 
-	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, http.StatusOK, write.Code)
 	assert.NotEmpty(t, messages)
-
 }
 
 func TestHealthCheck(t *testing.T) {
-	r := SetUpRouter()
-	r.GET("/healthcheck", getHealthCheck)
-	req, _ := http.NewRequest("GET", "/healthcheck", nil)
-	w := httptest.NewRecorder()
-	r.ServeHTTP(w, req)
+	t.Parallel()
 
-	assert.Equal(t, http.StatusOK, w.Code)
+	router := SetUpRouter()
+	router.GET("/healthcheck", getHealthCheck)
+
+	req, _ := http.NewRequest(http.MethodGet, "/healthcheck", nil)
+
+	write := httptest.NewRecorder()
+	router.ServeHTTP(write, req)
+
+	assert.Equal(t, http.StatusOK, write.Code)
 	assert.NotEmpty(t, "API is running!")
 }

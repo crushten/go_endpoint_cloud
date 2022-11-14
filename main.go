@@ -7,22 +7,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// message represents data about a message post
+// Message represents data about a message post.
 type message struct {
 	ID        int    `json:"id"`
 	Message   string `json:"message"`
 	Timestamp int64  `json:"timestamp"`
 }
 
-// Need struct to be in64 to use this
+// Need struct to be in64 to use this.
 var t = time.Now().UnixMilli()
 
-// message slice to seed data
+// Message slice to seed data.
 var messages = []message{
 	{ID: 1, Message: "Automate all the things!", Timestamp: t},
 }
 
-// getMessages responds with list of all the messages as json
+// getMessages responds with list of all the messages as json.
 func getMessages(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, messages)
 }
