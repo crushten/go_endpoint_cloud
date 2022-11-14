@@ -12,6 +12,7 @@ import (
 
 // Setup sn instance of Gin router
 func SetUpRouter() *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	return router
 }
